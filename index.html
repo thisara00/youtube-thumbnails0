@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Thumbnail Downloader - Free HD Thumbnails</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial; }
+        body { background: #667eea; min-height: 100vh; padding: 20px; }
+        .container { background: white; max-width: 800px; margin: 0 auto; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        h1 { color: #ff0000; text-align: center; margin-bottom: 15px; }
+        .description { color: #666; text-align: center; margin-bottom: 25px; }
+        .input-group { display: flex; flex-direction: column; gap: 10px; margin: 25px 0; }
+        input { padding: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
+        button { background: #3498db; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .ad-space { background: #f8f9fa; padding: 20px; margin: 25px 0; text-align: center; border: 2px dashed #ccc; border-radius: 8px; }
+        .thumbnails { display: none; gap: 15px; margin: 25px 0; }
+        .thumbnail-card { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px; }
+        .thumbnail { width: 100%; border-radius: 8px; margin-bottom: 10px; }
+        .download-btn { display: block; background: #27ae60; color: white; padding: 12px; text-align: center; border-radius: 6px; text-decoration: none; font-weight: bold; }
+        .error { color: red; text-align: center; margin: 15px 0; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 YouTube Thumbnail Downloader</h1>
+        <p class="description">Download high-quality thumbnails from any YouTube video. 100% Free!</p>
+        
+        <div class="ad-space">
+            <p>📢 Ad Space - Ready for Ads</p>
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="youtube-url" placeholder="Paste YouTube URL here...">
+            <button id="extract-btn">🚀 Get Thumbnails</button>
+        </div>
+        
+        <div class="error" id="error-message">Please enter a valid YouTube URL!</div>
+        
+        <div class="thumbnails" id="thumbnails"></div>
+        
+        <div class="ad-space">
+            <p>📢 Ad Space - Ready for Ads</p>
+        </div>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 25px;">
+            <h3>📖 How to Use:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li>Copy YouTube video URL</li>
+                <li>Paste above and click "Get Thumbnails"</li>
+                <li>Download your preferred quality</li>
+            </ol>
+        </div>
+        
+        <footer style="text-align: center; margin-top: 30px; color: #666;">
+            <p>© 2023 YouTube Thumbnail Downloader</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('extract-btn').addEventListener('click', function() {
+            const url = document.getElementById('youtube-url').value;
+            const videoId = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+            
+            if (videoId) {
+                document.getElementById('error-message').style.display = 'none';
+                const thumbnails = document.getElementById('thumbnails');
+                thumbnails.innerHTML = '';
+                
+                const qualities = {
+                    'Max Quality (HD)': 'maxresdefault',
+                    'Standard Quality': 'sddefault',
+                    'High Quality': 'hqdefault'
+                };
+                
+                Object.entries(qualities).forEach(([name, quality]) => {
+                    const thumbnailUrl = `https://img.youtube.com/vi/${videoId[1]}/${quality}.jpg`;
+                    const card = document.createElement('div');
+                    card.className = 'thumbnail-card';
+                    card.innerHTML = `
+                        <img src="${thumbnailUrl}" class="thumbnail">
+                        <div style="margin-top: 10px;">
+                            <strong>${name}</strong>
+                            <a href="${thumbnailUrl}" download="thumbnail-${quality}.jpg" class="download-btn">📥 Download</a>
+                        </div>
+                    `;
+                    thumbnails.appendChild(card);
+                });
+                
+                thumbnails.style.display = 'block';
+            } else {
+                document.getElementById('error-message').style.display = 'block';
+            }
+        });
+
+        // Example URL
+        document.getElementById('youtube-url').value = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+    </script>
+</body>
+</
