@@ -3,7 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Tools - Thumbnail & Video Downloader</title>
+    <title>YouTube Thumbnail Downloader - Download HD Thumbnails Free | 2024</title>
+    <meta name="description" content="Free YouTube Thumbnail Downloader - Download HD, Maxres, SD quality thumbnails instantly. No registration required. Works on all devices. Fast and secure.">
+    <meta name="keywords" content="youtube thumbnail download, thumbnail downloader, download youtube thumbnails, hd thumbnail, free thumbnail download">
+    <meta name="author" content="YouTube Thumbnail Downloader">
+    
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "YouTube Thumbnail Downloader",
+      "description": "Free tool to download YouTube thumbnails in HD quality",
+      "url": "https://thisara00.github.io/youtube-thumbnails0/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "permissions": "browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -12,735 +35,610 @@
         }
         
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
         }
-        
-        .container { 
-            max-width: 1400px;
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
             margin: 0 auto;
-            background: white; 
-            padding: 50px; 
-            border-radius: 20px; 
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        h1 { 
-            color: #ff0000; 
-            font-size: 3.5em;
-            margin-bottom: 15px;
-            font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .subtitle {
-            color: #666;
-            font-size: 1.4em;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }
-
-        /* Main Content Area */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        /* Left Column - Video Player & Input */
-        .left-column {
+            padding: 0 20px;
             display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        /* Big Input Area for PC */
-        .big-input-section {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 60px 40px;
-            border-radius: 20px;
-            text-align: center;
-            border: 3px solid #e9ecef;
-        }
-        
-        .big-input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+            justify-content: space-between;
             align-items: center;
         }
-        
-        .big-input { 
-            width: 100%;
-            max-width: 800px;
-            padding: 30px;
-            border: 4px solid #dee2e6;
-            border-radius: 20px;
-            font-size: 1.4em;
-            transition: all 0.3s ease;
-            background: white;
-            box-shadow: inset 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .big-input:focus {
-            border-color: #ff0000;
-            outline: none;
-            box-shadow: 0 0 0 6px rgba(255, 0, 0, 0.1), inset 0 4px 15px rgba(0,0,0,0.1);
-            transform: scale(1.02);
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .big-btn { 
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            color: white; 
-            padding: 25px 50px;
-            border: none; 
-            cursor: pointer; 
-            border-radius: 15px; 
-            font-size: 1.3em; 
+
+        .logo {
+            font-size: 1.5rem;
             font-weight: 700;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
-            min-width: 280px;
-        }
-        
-        .big-btn:hover {
-            background: linear-gradient(135deg, #cc0000, #990000);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255, 0, 0, 0.4);
+            color: #ff0000;
+            text-decoration: none;
         }
 
-        .video-btn {
-            background: linear-gradient(135deg, #28a745, #218838);
-        }
-        
-        .video-btn:hover {
-            background: linear-gradient(135deg, #218838, #1e7e34);
-        }
-
-        /* Video Player Section */
-        .video-player-section {
-            background: #000;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            display: none;
-        }
-        
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-        }
-        
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Right Column - Tools & Ads */
-        .right-column {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        /* Tools Section */
-        .tools-section {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            border: 3px solid #e9ecef;
-        }
-        
-        .tools-section h2 {
+        .logo span {
             color: #333;
-            margin-bottom: 30px;
-            font-size: 2em;
         }
-        
-        .tool-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .tool-btn {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 25px;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.3em;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
             font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* Tool Section */
+        .tool-section {
+            padding: 3rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .url-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .url-input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+        }
+
+        .download-btn {
+            background: #ff0000;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
-        }
-        
-        .tool-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(0, 123, 255, 0.4);
         }
 
-        .thumbnail-tool {
-            background: linear-gradient(135deg, #28a745, #218838);
+        .download-btn:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
         }
-        
-        .video-tool {
-            background: linear-gradient(135deg, #dc3545, #c82333);
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Thumbnails Grid */
+        .thumbnails {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .thumbnail-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #e1e5e9;
+        }
+
+        .thumbnail-card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 2px solid #f8f9fa;
+        }
+
+        .quality-badge {
+            background: #28a745;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
         }
 
         /* Ad Container */
         .ad-container {
-            position: relative;
             background: #f8f9fa;
-            border: 3px solid #dee2e6;
-            border-radius: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            margin: 2rem 0;
             overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        
-        .ad-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-        
-        .ad-header {
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            color: white;
-            padding: 12px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1em;
-            font-weight: 600;
-        }
-        
-        .ad-controls {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .ad-btn {
-            background: rgba(255,255,255,0.2);
-            border: 2px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .ad-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.05);
         }
 
-        /* Mobile-specific small close buttons */
-        .mobile-ad-btn {
-            display: none;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
+        .ad-label {
+            background: #6c757d;
             color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.7em;
-        }
-        
-        .ad-content {
-            padding: 40px;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
             text-align: center;
-            min-height: 150px;
+        }
+
+        .ad-content {
+            padding: 2rem;
+            text-align: center;
+            min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #ffffff;
         }
 
-        /* Thumbnails Grid */
-        .thumbnails { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 30px; 
-            margin: 50px 0; 
+        /* FAQ Section */
+        .faq {
+            background: #f8f9fa;
+            padding: 3rem;
+            margin-top: 3rem;
+        }
+
+        .faq h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: white;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
             display: none;
         }
-        
-        .thumbnail-item { 
-            text-align: center; 
-            padding: 30px; 
-            background: white;
-            border-radius: 20px; 
-            border: 2px solid #e9ecef;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .thumbnail-item:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border-color: #ff0000;
-        }
-        
-        .thumbnail-item img {
-            width: 100%;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 4px solid #f8f9fa;
-            transition: transform 0.3s ease;
-        }
-        
-        .thumbnail-item:hover img {
-            transform: scale(1.05);
-        }
-        
-        .download-btn { 
-            background: linear-gradient(135deg, #28a745, #218838);
-            color: white; 
-            padding: 18px 30px; 
-            border: none; 
-            cursor: pointer; 
-            width: 100%; 
-            margin-top: 15px; 
-            border-radius: 12px; 
-            font-weight: 700;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
-        }
-        
-        .download-btn:hover {
-            background: linear-gradient(135deg, #218838, #1e7e34);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4);
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
         }
 
-        footer {
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #ff0000;
+        }
+
+        .footer-bottom {
             text-align: center;
-            margin-top: 80px;
-            color: #666;
-            font-size: 1em;
-            padding-top: 30px;
-            border-top: 2px solid #e9ecef;
-            line-height: 1.8;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #555;
         }
 
-        /* Mobile Responsive */
+        /* Responsive */
         @media (max-width: 768px) {
-            body {
-                padding: 20px 10px;
+            .hero h1 {
+                font-size: 2rem;
             }
             
-            .container {
-                padding: 20px 15px;
-                border-radius: 15px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .subtitle {
-                font-size: 1.1em;
-            }
-            
-            .main-content {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .big-input-section {
-                padding: 30px 20px;
-            }
-            
-            .big-input {
-                font-size: 1.1em;
-                padding: 20px;
-                max-width: 100%;
-            }
-            
-            .big-btn {
-                min-width: 100%;
-                padding: 20px;
-                font-size: 1.1em;
-            }
-            
-            .action-buttons {
+            .input-group {
                 flex-direction: column;
-                gap: 15px;
             }
             
-            /* Hide PC ad buttons, show mobile buttons */
-            .ad-btn {
-                display: none;
+            .tool-section {
+                padding: 2rem 1rem;
             }
             
-            .mobile-ad-btn {
-                display: inline-block;
-            }
-            
-            .ad-header {
-                padding: 8px 15px;
-            }
-            
-            .ad-content {
-                padding: 20px;
-                min-height: 100px;
-            }
-            
-            .tools-section {
-                padding: 25px 20px;
-            }
-            
-            .tool-btn {
-                padding: 20px;
-                font-size: 1.1em;
+            .features {
+                grid-template-columns: 1fr;
             }
             
             .thumbnails {
                 grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .thumbnail-item {
-                padding: 20px;
             }
         }
 
-        /* Large Desktop Optimizations */
-        @media (min-width: 1400px) {
-            .container {
-                max-width: 1400px;
-            }
-            
-            .big-input {
-                max-width: 900px;
-            }
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff0000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">YouTube<span>Tool</span></a>
+            <nav>
+                <a href="#how-to-use" style="margin-right: 1rem; text-decoration: none; color: #333;">How to Use</a>
+                <a href="#faq" style="text-decoration: none; color: #333;">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>YouTube Thumbnail Downloader</h1>
+            <p>Download high-quality YouTube thumbnails in HD, Maxres, and SD formats instantly. Free, fast, and no registration required.</p>
+        </div>
+    </section>
+
+    <!-- Main Tool -->
     <div class="container">
-        <header>
-            <h1>🎬 YouTube Tools Pro</h1>
-            <p class="subtitle">Download Thumbnails & Videos - All in One Platform</p>
-            <p style="color: #888; font-size: 1.1em;">Professional tools for content creators and marketers</p>
-        </header>
-
-        <div class="main-content">
-            <!-- Left Column -->
-            <div class="left-column">
-                <!-- Big Input Section -->
-                <div class="big-input-section">
-                    <div class="big-input-group">
-                        <input type="text" id="youtubeUrl" class="big-input" placeholder="🔗 Paste YouTube URL here... Example: https://www.youtube.com/watch?v=..." value="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-                        <div class="action-buttons">
-                            <button class="big-btn video-btn" onclick="playVideo()">▶️ Play Video</button>
-                            <button class="big-btn" onclick="getThumbnails()">📸 Get Thumbnails</button>
-                            <button class="big-btn video-tool" onclick="downloadVideo()">📥 Download Video</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Video Player Section -->
-                <div class="video-player-section" id="videoPlayer">
-                    <div class="video-container">
-                        <iframe id="videoFrame" src="" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <!-- Thumbnails Grid -->
-                <div id="thumbnailsContainer" class="thumbnails"></div>
-            </div>
-
-            <!-- Right Column -->
-            <div class="right-column">
-                <!-- Tools Section -->
-                <div class="tools-section">
-                    <h2>🚀 Quick Tools</h2>
-                    <div class="tool-buttons">
-                        <button class="tool-btn thumbnail-tool" onclick="showThumbnailDownloader()">
-                            📷 Download Thumbnails
-                        </button>
-                        <button class="tool-btn video-tool" onclick="showVideoDownloader()">
-                            🎬 Download Video
-                        </button>
-                        <button class="tool-btn" onclick="clearAll()">
-                            🗑️ Clear All
-                        </button>
-                    </div>
-                </div>
-
-                <!-- AD 1 - Sidebar Banner -->
-                <div class="ad-container" id="ad1">
-                    <div class="ad-header">
-                        <span>ADVERTISEMENT</span>
-                        <div class="ad-controls">
-                            <button class="ad-btn" onclick="refreshAd('ad1')">🔄 Refresh</button>
-                            <button class="ad-btn" onclick="closeAd('ad1')">❌ Close</button>
-                            <button class="mobile-ad-btn" onclick="closeAd('ad1')">❌</button>
-                        </div>
-                    </div>
-                    <div class="ad-content">
-                        <script type="text/javascript">
-                            atOptions = {
-                                'key' : 'bb33f009437d7bc760e531ea51e69708',
-                                'format' : 'iframe',
-                                'height' : 600,
-                                'width' : 300,
-                                'params' : {}
-                            };
-                        </script>
-                        <script type="text/javascript" src="//www.highperformanceformat.com/bb33f009437d7bc760e531ea51e69708/invoke.js"></script>
-                    </div>
+        <section class="tool-section">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">Download YouTube Thumbnails</h2>
+            
+            <!-- Ad Top -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-content">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'bb33f009437d7bc760e531ea51e69708',
+                            'format' : 'iframe',
+                            'height' : 90,
+                            'width' : 728,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/bb33f009437d7bc760e531ea51e69708/invoke.js"></script>
                 </div>
             </div>
-        </div>
 
-        <!-- Additional Ads -->
-        <div class="ad-container" id="ad2" style="margin-top: 40px;">
-            <div class="ad-header">
-                <span>ADVERTISEMENT</span>
-                <div class="ad-controls">
-                    <button class="ad-btn" onclick="refreshAd('ad2')">🔄 Refresh</button>
-                    <button class="ad-btn" onclick="closeAd('ad2')">❌ Close</button>
-                    <button class="mobile-ad-btn" onclick="closeAd('ad2')">❌</button>
+            <!-- Input Section -->
+            <div class="input-group">
+                <input type="text" id="youtubeUrl" class="url-input" placeholder="Paste YouTube URL here (e.g., https://www.youtube.com/watch?v=...)" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                <button class="download-btn" onclick="getThumbnails()">Get Thumbnails</button>
+            </div>
+
+            <!-- Loading -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading thumbnails...</p>
+            </div>
+
+            <!-- Features -->
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Get thumbnails instantly with our optimized processing</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🆓</div>
+                    <h3>100% Free</h3>
+                    <p>No hidden costs, no registration required</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Works perfectly on all devices and browsers</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure & Private</h3>
+                    <p>No data storage, completely private</p>
                 </div>
             </div>
-            <div class="ad-content">
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : 'dd75477c0ddc7155679a7564810deb1c',
-                        'format' : 'iframe',
-                        'height' : 250,
-                        'width' : 300,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/dd75477c0ddc7155679a7564810deb1c/invoke.js"></script>
-            </div>
-        </div>
 
-        <footer>
-            <p>© 2024 YouTube Tools Pro. Professional toolkit for content creators worldwide.</p>
-            <p>Not affiliated with YouTube. All content are copyright of their respective owners.</p>
-        </footer>
+            <!-- Thumbnails Grid -->
+            <div id="thumbnailsContainer" class="thumbnails"></div>
+
+            <!-- Ad Bottom -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-content">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'dd75477c0ddc7155679a7564810deb1c',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/dd75477c0ddc7155679a7564810deb1c/invoke.js"></script>
+                </div>
+            </div>
+        </section>
     </div>
 
+    <!-- How to Use -->
+    <div class="container" id="how-to-use">
+        <section class="tool-section">
+            <h2 style="text-align: center; margin-bottom: 2rem;">How to Download YouTube Thumbnails</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+                <div>
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">1</div>
+                    <h3>Copy URL</h3>
+                    <p>Copy the YouTube video URL from your browser</p>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">2</div>
+                    <h3>Paste URL</h3>
+                    <p>Paste the URL in the input field above</p>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">3</div>
+                    <h3>Get Thumbnails</h3>
+                    <p>Click the button to see available qualities</p>
+                </div>
+                <div>
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">4</div>
+                    <h3>Download</h3>
+                    <p>Choose your preferred quality and download</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FAQ -->
+    <div class="container" id="faq">
+        <section class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Is this tool really free?
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes, our YouTube Thumbnail Downloader is completely free to use. There are no hidden charges, no registration required, and no limitations on usage.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    What quality thumbnails can I download?
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>You can download thumbnails in multiple qualities: Maximum Resolution (maxresdefault), HD Quality (sddefault), High Quality (hqdefault), and Medium Quality (mqdefault).</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Is this tool safe to use?
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Absolutely! We don't store any of your data, and the tool works entirely in your browser. No personal information is required or collected.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Does it work on mobile devices?
+                    <span>+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes, our tool is fully responsive and works perfectly on all devices including smartphones, tablets, and desktop computers.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>YouTube Thumbnail Downloader</h3>
+                <p>The fastest and most reliable tool to download YouTube thumbnails in HD quality. Free forever.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="#how-to-use" style="color: #fff;">How to Use</a></p>
+                <p><a href="#faq" style="color: #fff;">FAQ</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <p>This tool is not affiliated with YouTube. All thumbnails are copyright of their respective owners.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 YouTube Thumbnail Downloader. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script>
-        let currentVideoId = '';
-
-        // Ad Control Functions
-        function closeAd(adId) {
-            const ad = document.getElementById(adId);
-            ad.style.display = 'none';
+        // FAQ Toggle
+        function toggleFAQ(button) {
+            const answer = button.nextElementSibling;
+            const isOpen = answer.style.display === 'block';
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                item.style.display = 'none';
+            });
+            document.querySelectorAll('.faq-question span').forEach(span => {
+                span.textContent = '+';
+            });
+            
+            // Toggle current
+            if (!isOpen) {
+                answer.style.display = 'block';
+                button.querySelector('span').textContent = '−';
+            }
         }
 
-        function refreshAd(adId) {
-            const ad = document.getElementById(adId);
-            const adContent = ad.querySelector('.ad-content');
-            
-            adContent.innerHTML = '<div style="font-size: 1.2em; color: #666;">🔄 Loading new advertisement...</div>';
-            
-            setTimeout(() => {
-                location.reload();
-            }, 1500);
-        }
-
-        // Extract Video ID from URL - FIXED VERSION
+        // Extract Video ID
         function extractVideoId(url) {
-            if (!url) return null;
-            
-            // Remove any extra spaces
-            url = url.trim();
-            
-            // Different patterns for YouTube URLs
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?\s]+)/,
-                /youtube\.com\/embed\/([^&?\s]+)/,
-                /youtube\.com\/v\/([^&?\s]+)/,
-                /youtube\.com\/watch\?.*v=([^&?\s]+)/
-            ];
-            
-            for (let pattern of patterns) {
-                const match = url.match(pattern);
-                if (match && match[1]) {
-                    return match[1];
-                }
-            }
-            
-            return null;
+            const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+            return match ? match[1] : null;
         }
 
-        // Play Video Function
-        function playVideo() {
-            const url = document.getElementById('youtubeUrl').value;
-            const videoId = extractVideoId(url);
-            
-            if (!videoId) {
-                alert('❌ Please enter a valid YouTube URL');
-                return;
-            }
-
-            currentVideoId = videoId;
-            const videoPlayer = document.getElementById('videoPlayer');
-            const videoFrame = document.getElementById('videoFrame');
-            
-            videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            videoPlayer.style.display = 'block';
-            
-            // Scroll to video player
-            videoPlayer.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Show Thumbnail Downloader
-        function showThumbnailDownloader() {
-            getThumbnails();
-        }
-
-        // Show Video Downloader
-        function showVideoDownloader() {
-            alert('🎬 Video download feature would require backend processing. This is a frontend demonstration.');
-        }
-
-        // Download Video
-        function downloadVideo() {
-            if (!currentVideoId) {
-                const url = document.getElementById('youtubeUrl').value;
-                currentVideoId = extractVideoId(url);
-            }
-            
-            if (!currentVideoId) {
-                alert('❌ Please enter a valid YouTube URL first');
-                return;
-            }
-            
-            alert(`📥 Video download would process: ${currentVideoId}\n\nNote: Actual video downloading requires server-side processing due to YouTube's terms of service.`);
-        }
-
-        // Get Thumbnails Function - FIXED DOWNLOAD
+        // Get Thumbnails
         function getThumbnails() {
             const url = document.getElementById('youtubeUrl').value;
             const videoId = extractVideoId(url);
             
             if (!videoId) {
-                alert('❌ Please enter a valid YouTube URL');
+                alert('Please enter a valid YouTube URL');
                 return;
             }
 
-            currentVideoId = videoId;
-            const qualities = [
-                { name: 'Maximum Resolution', code: 'maxresdefault' },
-                { name: 'HD Quality', code: 'sddefault' },
-                { name: 'High Quality', code: 'hqdefault' },
-                { name: 'Medium Quality', code: 'mqdefault' },
-                { name: 'Standard Quality', code: 'default' }
-            ];
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('thumbnailsContainer').style.display = 'none';
 
-            const container = document.getElementById('thumbnailsContainer');
-            container.innerHTML = '<h3 style="grid-column: 1/-1; text-align: center; margin: 30px 0; color: #333; font-size: 2em;">🎯 Available Thumbnail Qualities</h3>';
-            container.style.display = 'grid';
-
-            qualities.forEach(quality => {
-                const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/${quality.code}.jpg`;
-                
-                const thumbnailItem = document.createElement('div');
-                thumbnailItem.className = 'thumbnail-item';
-                
-                // FIXED: Use proper event listener instead of inline onclick
-                thumbnailItem.innerHTML = `
-                    <h4>${quality.name}</h4>
-                    <img src="${thumbnailUrl}" alt="${quality.name}" 
-                         onerror="this.style.display='none'">
-                    <button class="download-btn" data-url="${thumbnailUrl}" data-filename="youtube-thumbnail-${quality.code}.jpg">
-                        📥 Download ${quality.name}
-                    </button>
-                `;
-                
-                container.appendChild(thumbnailItem);
-            });
-
-            // Add event listeners to all download buttons
             setTimeout(() => {
-                const downloadButtons = document.querySelectorAll('.download-btn');
-                downloadButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const url = this.getAttribute('data-url');
-                        const filename = this.getAttribute('data-filename');
-                        downloadImage(url, filename);
-                    });
-                });
-            }, 100);
+                const qualities = [
+                    { name: 'Maximum Resolution', code: 'maxresdefault' },
+                    { name: 'HD Quality', code: 'sddefault' },
+                    { name: 'High Quality', code: 'hqdefault' },
+                    { name: 'Medium Quality', code: 'mqdefault' },
+                    { name: 'Standard Quality', code: 'default' }
+                ];
 
-            // Scroll to thumbnails
-            container.scrollIntoView({ behavior: 'smooth' });
+                const container = document.getElementById('thumbnailsContainer');
+                container.innerHTML = '';
+                container.style.display = 'grid';
+
+                qualities.forEach(quality => {
+                    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/${quality.code}.jpg`;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'thumbnail-card';
+                    card.innerHTML = `
+                        <div class="quality-badge">${quality.name}</div>
+                        <img src="${thumbnailUrl}" alt="${quality.name}" onerror="this.style.display='none'">
+                        <button class="download-btn" onclick="downloadThumbnail('${thumbnailUrl}', 'youtube-thumbnail-${quality.code}.jpg')" style="width: 100%;">
+                            Download ${quality.name}
+                        </button>
+                    `;
+                    container.appendChild(card);
+                });
+
+                // Hide loading
+                document.getElementById('loading').style.display = 'none';
+                
+                // Scroll to results
+                container.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
         }
 
-        // Download Image Function - FIXED VERSION
-        function downloadImage(url, filename) {
-            console.log('Downloading:', url, filename); // Debug log
-            
-            // Create a temporary anchor element
+        // Download Thumbnail
+        function downloadThumbnail(url, filename) {
             const link = document.createElement('a');
             link.href = url;
             link.download = filename;
-            
-            // Trigger the download
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            
-            // Show success message
-            setTimeout(() => {
-                alert(`✅ Download started: ${filename}`);
-            }, 500);
         }
-
-        // Clear All Function
-        function clearAll() {
-            document.getElementById('youtubeUrl').value = '';
-            document.getElementById('videoPlayer').style.display = 'none';
-            document.getElementById('videoFrame').src = '';
-            document.getElementById('thumbnailsContainer').style.display = 'none';
-            document.getElementById('thumbnailsContainer').innerHTML = '';
-            currentVideoId = '';
-        }
-
-        // Auto-focus on input when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('youtubeUrl').focus();
-        });
 
         // Enter key support
         document.getElementById('youtubeUrl').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                playVideo();
-            }
+            if (e.key === 'Enter') getThumbnails();
         });
+
+        // Auto-focus on input
+        document.getElementById('youtubeUrl').focus();
     </script>
 </body>
 </html>
