@@ -3,286 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free YouTube Thumbnail Downloader - Get HD Thumbnails Instantly</title>
+    <title>YouTube Thumbnail Downloader - Free HD Downloads</title>
     <meta name="description" content="Download high-quality YouTube thumbnails in HD, Maxres, SD quality. Free, fast, and easy to use. No registration required.">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background: #f5f5f5; 
         }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            line-height: 1.6;
+        .container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-top: 20px;
+        h1 { 
+            color: #ff0000; 
+            text-align: center; 
+            margin-bottom: 10px; 
         }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        h1 {
-            color: #ff0000;
-            font-size: 2.8em;
-            margin-bottom: 10px;
-        }
-        
         .subtitle {
-            color: #666;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-        
-        /* Ad Spaces */
-        .ad-space {
-            background: #f8f9fa;
-            border: 2px dashed #dee2e6;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 25px 0;
             text-align: center;
-            color: #6c757d;
-            font-weight: bold;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .ad-label {
-            background: #ff0000;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-        
-        /* Input Section */
-        .input-section {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 12px;
+            color: #666;
             margin-bottom: 20px;
         }
-        
-        .input-group {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+        .ad-space { 
+            background: #f8f9fa; 
+            padding: 20px; 
+            margin: 20px 0; 
+            text-align: center; 
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
         }
-        
-        input[type="text"] {
-            flex: 1;
-            padding: 18px;
-            border: 3px solid #e9ecef;
-            border-radius: 10px;
+        input, button { 
+            width: 100%; 
+            padding: 15px; 
+            margin: 10px 0; 
+            box-sizing: border-box; 
+        }
+        input { 
+            border: 2px solid #ddd; 
+            border-radius: 5px; 
             font-size: 16px;
-            transition: all 0.3s ease;
         }
-        
-        input[type="text"]:focus {
-            border-color: #ff0000;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
-        }
-        
-        button {
-            background: #ff0000;
-            color: white;
-            padding: 18px 35px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
+        button { 
+            background: #ff0000; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            font-size: 16px; 
             font-weight: bold;
-            transition: all 0.3s ease;
         }
-        
         button:hover {
             background: #cc0000;
-            transform: translateY(-2px);
         }
-        
-        /* Features */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
+        .thumbnails { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 15px; 
+            margin: 20px 0; 
         }
-        
-        .feature {
-            text-align: center;
-            padding: 25px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+        .thumbnail-item { 
+            text-align: center; 
+            padding: 15px; 
+            background: #f8f9fa; 
+            border-radius: 5px; 
+            border: 1px solid #e9ecef;
         }
-        
-        .feature:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feature-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-        
-        /* Thumbnails Grid */
-        .thumbnails {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .thumbnail-item {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .thumbnail-item:hover {
-            transform: translateY(-3px);
-        }
-        
-        .thumbnail-item img {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border: 3px solid #f8f9fa;
-        }
-        
-        .download-btn {
-            background: #28a745;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            width: 100%;
-            transition: background 0.3s ease;
+        .download-btn { 
+            background: #28a745; 
+            color: white; 
+            padding: 12px; 
+            border: none; 
+            cursor: pointer; 
+            width: 100%; 
+            margin-top: 10px; 
+            border-radius: 5px; 
             font-weight: bold;
         }
-        
         .download-btn:hover {
             background: #218838;
         }
-        
+        .feature {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
         footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 30px;
             color: #666;
             font-size: 0.9em;
-            padding-top: 20px;
-            border-top: 1px solid #e9ecef;
-        }
-        
-        @media (max-width: 768px) {
-            .input-group {
-                flex-direction: column;
-            }
-            
-            button {
-                width: 100%;
-            }
-            
-            h1 {
-                font-size: 2.2em;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>🎬 YouTube Thumbnail Downloader</h1>
-            <p class="subtitle">Download High-Quality YouTube Thumbnails in HD - Free & Instant</p>
-        </header>
-
-        <!-- AD SPACE 1 - Top Banner -->
+        <h1>🎬 YouTube Thumbnail Downloader</h1>
+        <p class="subtitle">Download High-Quality YouTube Thumbnails in HD - Free & Instant</p>
+        
+        <!-- AD 1 - Top Banner (728x90) -->
         <div class="ad-space">
-            <div>
-                <div class="ad-label">ADVERTISEMENT</div>
-                <script type='text/javascript' src='//pl27788449.revenuecpmgate.com/67/b0/00/67b000481923287dbb1d34ca1b4983bc.js'></script>
-            </div>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : 'bb33f009437d7bc760e531ea51e69708',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/bb33f009437d7bc760e531ea51e69708/invoke.js"></script>
         </div>
 
-        <div class="input-section">
-            <div class="input-group">
-                <input type="text" id="youtubeUrl" placeholder="Paste YouTube URL here... Example: https://www.youtube.com/watch?v=..." />
-                <button onclick="getThumbnails()">🚀 Get Thumbnails</button>
-            </div>
-            <p style="text-align: center; color: #666; font-size: 0.95em;">
-                Supports all YouTube URLs: watch links, shorts, embedded links
-            </p>
+        <div class="feature">
+            <h3>🚀 How to Use:</h3>
+            <p>1. Paste YouTube URL → 2. Click Get Thumbnails → 3. Download HD Quality</p>
         </div>
 
-        <!-- Features Section -->
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">⚡</div>
-                <h3>Instant Download</h3>
-                <p>Get thumbnails in seconds with one click</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🆓</div>
-                <h3>Completely Free</h3>
-                <p>No registration or payment required</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📱</div>
-                <h3>Mobile Friendly</h3>
-                <p>Works perfectly on all devices</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🎯</div>
-                <h3>Multiple Qualities</h3>
-                <p>HD, Maxres, SD quality options</p>
-            </div>
-        </div>
+        <input type="text" id="youtubeUrl" placeholder="Paste YouTube URL here... Example: https://www.youtube.com/watch?v=...">
+        <button onclick="getThumbnails()">📥 Get Thumbnails</button>
 
-        <!-- AD SPACE 2 - Middle Banner -->
+        <!-- AD 2 - Middle Banner (300x250) -->
         <div class="ad-space">
-            <div>
-                <div class="ad-label">ADVERTISEMENT</div>
-                <script type='text/javascript' src='//pl27788449.revenuecpmgate.com/67/b0/00/67b000481923287dbb1d34ca1b4983bc.js'></script>
-            </div>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : 'dd75477c0ddc7155679a7564810deb1c',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/dd75477c0ddc7155679a7564810deb1c/invoke.js"></script>
         </div>
 
         <div id="thumbnailsContainer" class="thumbnails"></div>
 
-        <!-- AD SPACE 3 - Bottom Banner -->
+        <!-- AD 3 - Bottom Banner (320x50) -->
         <div class="ad-space">
-            <div>
-                <div class="ad-label">ADVERTISEMENT</div>
-                <script type='text/javascript' src='//pl27788449.revenuecpmgate.com/67/b0/00/67b000481923287dbb1d34ca1b4983bc.js'></script>
-            </div>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '0572f1d6e8e680e9344ea0e915106bbd',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/0572f1d6e8e680e9344ea0e915106bbd/invoke.js"></script>
         </div>
 
         <footer>
-            <p>© 2024 YouTube Thumbnail Downloader. This tool is free to use for all YouTube creators.</p>
+            <p>© 2024 YouTube Thumbnail Downloader. Free tool for content creators.</p>
             <p>Not affiliated with YouTube. All thumbnails are copyright of their respective owners.</p>
         </footer>
     </div>
@@ -290,7 +168,7 @@
     <script>
         function getThumbnails() {
             const url = document.getElementById('youtubeUrl').value;
-            const videoId = extractVideoId(url);
+            const videoId = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
             
             if (!videoId) {
                 alert('❌ Please enter a valid YouTube URL');
@@ -306,63 +184,34 @@
             ];
 
             const container = document.getElementById('thumbnailsContainer');
-            container.innerHTML = '<h3 style="grid-column: 1/-1; text-align: center; margin: 20px 0; color: #333;">Available Thumbnails:</h3>';
+            container.innerHTML = '<h3 style="grid-column: 1/-1; text-align: center; margin: 10px 0; color: #333;">🎯 Available Thumbnails:</h3>';
 
-            let loadedCount = 0;
-            
             qualities.forEach(quality => {
-                const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/${quality.code}.jpg`;
-                
+                const thumbnailUrl = `https://img.youtube.com/vi/${videoId[1]}/${quality.code}.jpg`;
                 const thumbnailItem = document.createElement('div');
                 thumbnailItem.className = 'thumbnail-item';
-                
                 thumbnailItem.innerHTML = `
-                    <h4 style="margin-bottom: 15px; color: #333;">${quality.name}</h4>
-                    <img src="${thumbnailUrl}" alt="${quality.name}" 
-                         onload="loadedCount++" 
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='none'">
-                    <button class="download-btn" onclick="downloadImage('${thumbnailUrl}', 'youtube-thumbnail-${quality.code}.jpg')">
+                    <h4 style="margin: 0 0 10px 0; color: #333;">${quality.name}</h4>
+                    <img src="${thumbnailUrl}" alt="${quality.name}" style="width:100%; border-radius:5px; border: 2px solid #dee2e6;" onerror="this.style.display='none'">
+                    <button class="download-btn" onclick="downloadImage('${thumbnailUrl}','youtube-thumbnail-${quality.code}.jpg')">
                         📥 Download ${quality.name}
                     </button>
                 `;
-                
                 container.appendChild(thumbnailItem);
             });
         }
 
-        function extractVideoId(url) {
-            const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-            const match = url.match(regex);
-            return match ? match[1] : null;
-        }
-
         function downloadImage(url, filename) {
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) throw new Error('Network error');
-                    return response.blob();
-                })
-                .then(blob => {
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = filename;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    
-                    // Show success message
-                    alert(`✅ Downloaded: ${filename}`);
-                })
-                .catch(error => {
-                    alert('❌ Download failed. The thumbnail may not be available in this quality.');
-                    console.error('Download error:', error);
-                });
+            fetch(url).then(r => r.blob()).then(blob => {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+                alert(`✅ Downloaded: ${filename}`);
+            }).catch(error => {
+                alert('❌ Download failed. This quality may not be available.');
+            });
         }
-
-        // Auto-focus on input when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('youtubeUrl').focus();
-        });
 
         // Enter key support
         document.getElementById('youtubeUrl').addEventListener('keypress', function(e) {
@@ -370,9 +219,11 @@
                 getThumbnails();
             }
         });
+
+        // Auto-focus on input
+        document.getElementById('youtubeUrl').focus();
     </script>
 
-    <!-- Additional Adsterra Popunder Code -->
-    <script type='text/javascript' src='//pl27788449.revenuecpmgate.com/67/b0/00/67b000481923287dbb1d34ca1b4983bc.js'></script>
+    <!-- Optional: Add Popunder code here later for even more earnings -->
 </body>
 </html>
