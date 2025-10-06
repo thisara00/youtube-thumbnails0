@@ -62,7 +62,7 @@
             gap: 30px;
         }
 
-        /* Big Input Area */
+        /* Big Input Area for PC */
         .big-input-section {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             padding: 60px 40px;
@@ -258,6 +258,18 @@
             background: rgba(255,255,255,0.3);
             transform: scale(1.05);
         }
+
+        /* Mobile-specific small close buttons */
+        .mobile-ad-btn {
+            display: none;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.7em;
+        }
         
         .ad-content {
             padding: 40px;
@@ -339,22 +351,94 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+                border-radius: 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .subtitle {
+                font-size: 1.1em;
+            }
+            
             .main-content {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .big-input-section {
+                padding: 30px 20px;
             }
             
             .big-input {
                 font-size: 1.1em;
                 padding: 20px;
+                max-width: 100%;
             }
             
             .big-btn {
                 min-width: 100%;
                 padding: 20px;
+                font-size: 1.1em;
             }
             
             .action-buttons {
                 flex-direction: column;
+                gap: 15px;
+            }
+            
+            /* Hide PC ad buttons, show mobile buttons */
+            .ad-btn {
+                display: none;
+            }
+            
+            .mobile-ad-btn {
+                display: inline-block;
+            }
+            
+            .ad-header {
+                padding: 8px 15px;
+            }
+            
+            .ad-content {
+                padding: 20px;
+                min-height: 100px;
+            }
+            
+            .tools-section {
+                padding: 25px 20px;
+            }
+            
+            .tool-btn {
+                padding: 20px;
+                font-size: 1.1em;
+            }
+            
+            .thumbnails {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .thumbnail-item {
+                padding: 20px;
+            }
+        }
+
+        /* Large Desktop Optimizations */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1400px;
+            }
+            
+            .big-input {
+                max-width: 900px;
             }
         }
     </style>
@@ -373,7 +457,7 @@
                 <!-- Big Input Section -->
                 <div class="big-input-section">
                     <div class="big-input-group">
-                        <input type="text" id="youtubeUrl" class="big-input" placeholder="🔗 Paste YouTube URL here... Example: https://www.youtube.com/watch?v=...">
+                        <input type="text" id="youtubeUrl" class="big-input" placeholder="🔗 Paste YouTube URL here... Example: https://www.youtube.com/watch?v=..." value="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
                         <div class="action-buttons">
                             <button class="big-btn video-btn" onclick="playVideo()">▶️ Play Video</button>
                             <button class="big-btn" onclick="getThumbnails()">📸 Get Thumbnails</button>
@@ -416,8 +500,9 @@
                     <div class="ad-header">
                         <span>ADVERTISEMENT</span>
                         <div class="ad-controls">
-                            <button class="ad-btn" onclick="refreshAd('ad1')">🔄</button>
-                            <button class="ad-btn" onclick="closeAd('ad1')">❌</button>
+                            <button class="ad-btn" onclick="refreshAd('ad1')">🔄 Refresh</button>
+                            <button class="ad-btn" onclick="closeAd('ad1')">❌ Close</button>
+                            <button class="mobile-ad-btn" onclick="closeAd('ad1')">❌</button>
                         </div>
                     </div>
                     <div class="ad-content">
@@ -443,6 +528,7 @@
                 <div class="ad-controls">
                     <button class="ad-btn" onclick="refreshAd('ad2')">🔄 Refresh</button>
                     <button class="ad-btn" onclick="closeAd('ad2')">❌ Close</button>
+                    <button class="mobile-ad-btn" onclick="closeAd('ad2')">❌</button>
                 </div>
             </div>
             <div class="ad-content">
@@ -485,11 +571,29 @@
             }, 1500);
         }
 
-        // Extract Video ID from URL
+        // Extract Video ID from URL - FIXED VERSION
         function extractVideoId(url) {
-            const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-            const match = url.match(regex);
-            return match ? match[1] : null;
+            if (!url) return null;
+            
+            // Remove any extra spaces
+            url = url.trim();
+            
+            // Different patterns for YouTube URLs
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?\s]+)/,
+                /youtube\.com\/embed\/([^&?\s]+)/,
+                /youtube\.com\/v\/([^&?\s]+)/,
+                /youtube\.com\/watch\?.*v=([^&?\s]+)/
+            ];
+            
+            for (let pattern of patterns) {
+                const match = url.match(pattern);
+                if (match && match[1]) {
+                    return match[1];
+                }
+            }
+            
+            return null;
         }
 
         // Play Video Function
@@ -518,12 +622,12 @@
             getThumbnails();
         }
 
-        // Show Video Downloader (Placeholder - would need backend for actual video download)
+        // Show Video Downloader
         function showVideoDownloader() {
             alert('🎬 Video download feature would require backend processing. This is a frontend demonstration.');
         }
 
-        // Download Video (Placeholder)
+        // Download Video
         function downloadVideo() {
             if (!currentVideoId) {
                 const url = document.getElementById('youtubeUrl').value;
@@ -538,7 +642,7 @@
             alert(`📥 Video download would process: ${currentVideoId}\n\nNote: Actual video downloading requires server-side processing due to YouTube's terms of service.`);
         }
 
-        // Get Thumbnails Function
+        // Get Thumbnails Function - FIXED DOWNLOAD
         function getThumbnails() {
             const url = document.getElementById('youtubeUrl').value;
             const videoId = extractVideoId(url);
@@ -567,11 +671,12 @@
                 const thumbnailItem = document.createElement('div');
                 thumbnailItem.className = 'thumbnail-item';
                 
+                // FIXED: Use proper event listener instead of inline onclick
                 thumbnailItem.innerHTML = `
                     <h4>${quality.name}</h4>
                     <img src="${thumbnailUrl}" alt="${quality.name}" 
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='none'">
-                    <button class="download-btn" onclick="downloadImage('${thumbnailUrl}', 'youtube-thumbnail-${quality.code}.jpg')">
+                         onerror="this.style.display='none'">
+                    <button class="download-btn" data-url="${thumbnailUrl}" data-filename="youtube-thumbnail-${quality.code}.jpg">
                         📥 Download ${quality.name}
                     </button>
                 `;
@@ -579,30 +684,40 @@
                 container.appendChild(thumbnailItem);
             });
 
+            // Add event listeners to all download buttons
+            setTimeout(() => {
+                const downloadButtons = document.querySelectorAll('.download-btn');
+                downloadButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const url = this.getAttribute('data-url');
+                        const filename = this.getAttribute('data-filename');
+                        downloadImage(url, filename);
+                    });
+                });
+            }, 100);
+
             // Scroll to thumbnails
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Download Image Function
+        // Download Image Function - FIXED VERSION
         function downloadImage(url, filename) {
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) throw new Error('Network error');
-                    return response.blob();
-                })
-                .then(blob => {
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = filename;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    
-                    alert(`✅ Successfully Downloaded: ${filename}`);
-                })
-                .catch(error => {
-                    alert('❌ Download failed. This quality may not be available for the selected video.');
-                });
+            console.log('Downloading:', url, filename); // Debug log
+            
+            // Create a temporary anchor element
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            
+            // Trigger the download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show success message
+            setTimeout(() => {
+                alert(`✅ Download started: ${filename}`);
+            }, 500);
         }
 
         // Clear All Function
